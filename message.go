@@ -103,6 +103,18 @@ func (m *Message) SetHeader(field string, value ...string) {
 	m.header[field] = value
 }
 
+// SetHeaderBCCRecipients sets a slice of addresses to the BCC header field.
+func (m *Message) SetHeaderBCCRecipients(address []string) {
+	m.encodeHeader(address)
+	m.header["Bcc"] = address
+}
+
+// SetHeaderCCRecipients sets a slice of addresses to the CC header field.
+func (m *Message) SetHeaderCCRecipients(address []string) {
+	m.encodeHeader(address)
+	m.header["Cc"] = address
+}
+
 func (m *Message) encodeHeader(values []string) {
 	for i := range values {
 		values[i] = m.encodeString(values[i])
